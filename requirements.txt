@@ -1,0 +1,13 @@
+numpy
+pandas
+scikit-learn
+regex
+mlflow
+gensim
+keras
+pip
+tensorflow==2.14.0
+nltk
+pytz
+uvicorn
+fastapi
