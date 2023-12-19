@@ -22,3 +22,4 @@ p7_global/ml_logic/data.py
 p7_global/ml_logic/embedding.py
 p7_global/ml_logic/model.py
 p7_global/models/Embedding_custom_RNN.keras
+tests/__init__.py

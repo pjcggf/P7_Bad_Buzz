@@ -9,6 +9,7 @@ pip
 tensorflow==2.14.0
 nltk
 pytz
+pytest
 uvicorn
 fastapi
 azure-storage-blob
