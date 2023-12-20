@@ -40,5 +40,5 @@ async def test_predict_is_positive():
     """
     async with AsyncClient(app=app, base_url="http://test") as ac:
         response = await ac.get("/predict_single_tweet", params=test_params)
-    assert response.json == 'Positif', f"""Renvoie un prédiction négative pour
+    assert response.json() == 'Positif', f"""Renvoie un prédiction négative pour
     le texte {test_params['text']}"""

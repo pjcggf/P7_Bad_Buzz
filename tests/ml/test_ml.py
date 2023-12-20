@@ -9,7 +9,7 @@ model_info = downloader.info()['models'][CHOOSED_WV]
 VECTOR_SIZE = model_info['parameters']['dimension']
 VOCAB_SIZE = model_info['num_records']
 
-def check_vocab_exist():
+def test_vocab_exist():
     """
     Vérifie si le dict d'embedding est présent
     """
@@ -22,7 +22,7 @@ def check_vocab_exist():
     except FileNotFoundError as exc:
         raise FileNotFoundError('Fichier non trouvé') from exc
 
-def check_vocab_size():
+def test_vocab_size():
     """
     Vérifie la taille du dict
     """
@@ -32,7 +32,7 @@ def check_vocab_size():
     assert vocab_size == VOCAB_SIZE, \
     f"Le dictionnaire de vecteurs devrait être de taille {VOCAB_SIZE} ({vocab_size} actuellement)."
 
-def check_vector_size():
+def test_vector_size():
     """
     Vérifie la taille des vecteurs
     """
@@ -40,5 +40,8 @@ def check_vector_size():
     assert choosen_wv.vector_size == VECTOR_SIZE, \
     f"L'embedding devrait être de taille {VECTOR_SIZE} ({choosen_wv.vector_size} actuellement)."
 
-if __name__ == '__main__':
-    pytest.main()
+# if __name__ == "__main__":
+#     check_vocab_exist()
+#     check_vocab_size()
+#     check_vector_size()
+#     print("Everything passed")
