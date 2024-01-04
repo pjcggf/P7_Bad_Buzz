@@ -1,4 +1,3 @@
-import pytest
 from gensim.models import KeyedVectors
 from gensim import downloader
 from p7_global.ml_logic.embedding import return_keyed_vectors
@@ -39,9 +38,3 @@ def test_vector_size():
     choosen_wv = KeyedVectors.load(f'./p7_global/data/keyedvectors/{WV_SAVED_NAME}')
     assert choosen_wv.vector_size == VECTOR_SIZE, \
     f"L'embedding devrait être de taille {VECTOR_SIZE} ({choosen_wv.vector_size} actuellement)."
-
-# if __name__ == "__main__":
-#     check_vocab_exist()
-#     check_vocab_size()
-#     check_vector_size()
-#     print("Everything passed")
