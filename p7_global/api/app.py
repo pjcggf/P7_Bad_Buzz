@@ -4,6 +4,13 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from tensorflow import expand_dims
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+import json
+from tensorflow.keras.preprocessing.text import tokenizer_from_json
+
+# Opening JSON file
+with open('./p7_global/data/tokenizer_custom.json', 'r') as openfile:
+    json_object = json.load(openfile)
+    tokenizer_loaded = tokenizer_from_json(json_object)
 
 from p7_global.ml_logic.model import get_trained_model
 from p7_global.ml_logic.embedding import return_keyed_vectors, embed_sentence
@@ -21,12 +28,18 @@ app.add_middleware(
 )
 # Instancie le modèle et le précharge en mémoire dès le démarrage de l'instance
 # pour éviter des temps de chargements trop longs lors de la requete.
-# Idem pour le dictionnaire d'embedding
+# Idem pour le tokenizer custom pré-entrainé
 app.state.model = get_trained_model()
-app.state.wv = return_keyed_vectors()
+
+with open('./p7_global/data/tokenizer_custom.json', 'r', encoding='utf-8') as openfile:
+    json_object = json.load(openfile)
+    app.state.tokenizer = tokenizer_from_json(json_object)
 
 @app.get('/')
 def welcome_home():
+    """
+    Message d'accueil à la racine
+    """
     print('Welcome to root')
     return 'Welcome to root'
 
@@ -38,16 +51,13 @@ def predict_single_tweet(text :str):
     # Récupération du modèle pré-instancié
     model = app.state.model
     # Récupération du dict d'embedding pré-instancié
-    wv = app.state.wv
+    tokenizer = app.state.tokenizer
     # Nettoyage et lemmatization de l'input
     text = cleaning_text_lemma(text)
-    # Vectorisation de l'input
-    text = embed_sentence(wv, text)
-    # Ajout d'une dimension pour correspondre à la shape attendu par le
-    # modèle (1, nb_mots_vectorisés, 100)
-    text = expand_dims(text, 0)
+    # Vectorisation du texte
+    text = tokenizer.texts_to_sequences([text])
     # Padding du tenseur pour ramener la taille de nb_mots_vectorisé à 40
-    text = pad_sequences(text, dtype='float16', padding='post', maxlen=40)
+    text = pad_sequences(text, dtype='float16', padding='post', maxlen=50)
 
 
 

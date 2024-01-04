@@ -11,3 +11,6 @@ nltk
 pytz
 uvicorn
 fastapi
+azure-storage-blob
+azure-identity
+streamlit==1.28.1
