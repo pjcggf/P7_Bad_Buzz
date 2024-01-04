@@ -1,0 +1,23 @@
+name: New version
+
+run-name: ${{ github.actor }} pushes a new branch version
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - name: Install dependencies
+      run: make all
+
+    - name: Run check
+      run: make test_all
+
