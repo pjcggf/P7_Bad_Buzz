@@ -1,5 +1,5 @@
 """Module pour embedding des phrases ou corpus."""
-
+import os
 from gensim.models import KeyedVectors
 from gensim import downloader
 import numpy as np
@@ -13,13 +13,15 @@ model_info = downloader.info()['models'][CHOOSED_WV]
 VECTOR_SIZE = model_info['parameters']['dimension']
 VOCAB_SIZE = model_info['num_records']
 
+
 def return_keyed_vectors():
     """
     Renvoie le dict pour réaliser l'embedding
     """
+    path = os.path.join(".", "p7_global", "data", "keyedvectors")
     try:
         # Chargement du modèle déjà présent
-        choosen_wv = KeyedVectors.load(f'./p7_global/data/keyedvectors/{WV_SAVED_NAME}')
+        choosen_wv = KeyedVectors.load(os.path.join(path, WV_SAVED_NAME))
         vocab_size = len(choosen_wv.key_to_index)
         # Vérification de la taille du dictionnaire
         assert vocab_size == VOCAB_SIZE, \
@@ -31,8 +33,13 @@ def return_keyed_vectors():
     except FileNotFoundError:
         # Chargement du dict en ligne si absent
         choosen_wv = downloader.load(CHOOSED_WV)
-        # Sauvgarde du modèle
-        choosen_wv.save(f"./p7_global/data/keyedvectors/{WV_SAVED_NAME}")
+        # Sauvegarde du modèle
+        try:
+            path = os.path.join(".", "p7_global", "data", "keyedvectors")
+            os.mkdir(path)
+        except FileExistsError:
+            pass
+        choosen_wv.save(os.path.join(path, WV_SAVED_NAME))
         vocab_size = len(choosen_wv.key_to_index)
         # Vérification de la taille du dictionnaire
         assert vocab_size == VOCAB_SIZE, \
