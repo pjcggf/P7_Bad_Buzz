@@ -1,0 +1,18 @@
+name: CD
+
+# Déclenchement uniquement quand les tests ont été valides
+on:
+  workflow_run:
+    workflows: ["Test integration et developpement"]
+    types:
+      - completed
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile -t api-modele-simple:$(date +%s)
