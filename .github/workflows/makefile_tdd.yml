@@ -1,4 +1,4 @@
-name: New version
+name: Test integration et developpement
 
 run-name: ${{ github.actor }} pushes a new branch version
 
