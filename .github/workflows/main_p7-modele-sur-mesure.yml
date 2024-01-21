@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_3f39341deded4736b7022fb92a7f00ed }}/p7_bad_buzz:${{ github.sha }}
+        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_3f39341deded4736b7022fb92a7f00ed }}/p7_bad_buzz:latest
         file: ./Dockerfile
 
   deploy:
@@ -48,4 +48,4 @@ jobs:
         app-name: 'p7-modele-sur-mesure'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_0ca6d9308c5a4a3cb4892a04e686781e }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_3f39341deded4736b7022fb92a7f00ed }}/p7_bad_buzz:${{ github.sha }}'
+        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_3f39341deded4736b7022fb92a7f00ed }}/p7_bad_buzz:latest'
