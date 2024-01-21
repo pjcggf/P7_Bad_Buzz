@@ -27,11 +27,10 @@ jobs:
         password: ${{ secrets.AzureAppService_ContainerPassword_d963523abe7749c28aab90192d07cdb5 }}
 
     - name: Build and push container image to registry
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v5
       with:
         push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_2e78cf8d1dfe47c8b6edda4c84ee4bf4 }}/p7_bad_buzz:${{ github.sha }}
-        file: ./Dockerfile
+        tags: pjcggf/p7_bad_buzz:latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -48,4 +47,4 @@ jobs:
         app-name: 'p7-modele-simple'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_f8ff092cd1c24312a80abb3e4f43d920 }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_2e78cf8d1dfe47c8b6edda4c84ee4bf4 }}/p7_bad_buzz:${{ github.sha }}'
+        images: 'pjcggf/p7_bad_buzz:latest'
