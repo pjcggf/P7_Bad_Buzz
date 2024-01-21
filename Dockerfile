@@ -1,4 +1,3 @@
-# tensorflow base-images are optimized: lighter than python-buster + pip install tensorflow
 FROM python:3.10.6-buster
 
 WORKDIR /prod
@@ -14,4 +13,5 @@ RUN pip install .
 COPY Makefile Makefile
 RUN make all
 
+EXPOSE 80
 CMD uvicorn p7_global.api.app:app --host 0.0.0.0 --port $PORT
