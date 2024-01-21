@@ -19,7 +19,7 @@ async def test_root_returns_greeting():
     """
     async with AsyncClient(app=app, base_url="http://test") as ac:
         response = await ac.get("/")
-    assert response.json() == 'Welcome to root'
+    assert response.json() == f'Welcome to root, model: {app.state.model.name}'
 
 test_params = {'text': "I love you so much, you're wonderful"}
 

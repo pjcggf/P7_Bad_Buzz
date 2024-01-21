@@ -30,8 +30,8 @@ def welcome_home():
     """
     Message d'accueil à la racine
     """
-    print('Welcome to root')
-    return 'Welcome to root'
+    print(f'Welcome to root, model: {app.state.model.name}')
+    return f'Welcome to root, model: {app.state.model.name}'
 
 @app.get('/predict_single_tweet')
 def predict_single_tweet(text :str):
