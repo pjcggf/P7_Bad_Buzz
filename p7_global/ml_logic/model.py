@@ -5,7 +5,7 @@ PATH_MODEL = "./p7_global/models"
 
 
 def get_trained_model(
-    model_name: str = "Embedding_custom_RNN.keras"
+    model_name: str = "Embedding_GloVe_RNN_GRU.keras"
     ):
     """Renvoie le modèle préentrainé"""
     path = f'{PATH_MODEL}/{model_name}'
